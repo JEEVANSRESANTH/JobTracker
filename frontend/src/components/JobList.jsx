@@ -1,14 +1,10 @@
-function JobList({jobs}){
+import JobCard from "./JobCard";
+function JobList({jobs,deleteJob}){
     return(
         <div>
             <h2>Job List</h2>
-            {jobs.map((job,index) => (
-                <div key={index}>
-                    <p>Company :{job.company}</p>
-                    <p>Role :{job.role}</p>
-                    <p>Status :{job.status}</p>
-                    <hr />
-                </div>
+            {jobs.map((job) => (
+                <JobCard key={job.id} job={job} deleteJob={deleteJob}/>
             ))}
         </div>
     );

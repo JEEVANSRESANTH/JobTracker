@@ -7,6 +7,9 @@ function JobForm({addJob}){
         e.preventDefault();
         const jobData = {company,role,status};
         addJob(jobData);
+        setCompany("");
+        setRole("");
+        setStatus("Applied");
     }
     return(
         <div>
