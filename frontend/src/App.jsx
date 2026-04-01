@@ -9,10 +9,14 @@ function App(){
   const startEditing=(id)=>{
     setEditingJobId(id);
   }
-  const saveJob=(id,updatedCompany)=>{
+  const saveJob=(id,updatedCompany,updatedRole,updatedStatus)=>{
     setJobs(
       jobs.map((job)=>
-        job.id === id ?{...job,company:updatedCompany}:job)
+        job.id === id ?{...job,
+          company:updatedCompany,
+          role:updatedRole,
+          status:updatedStatus,
+          }:job)
     );
     setEditingJobId(null);
   }
