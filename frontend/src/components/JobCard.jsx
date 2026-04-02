@@ -35,7 +35,7 @@ function JobCard({ job, deleteJob, startEditing, saveJob, editingJobId }) {
         >
           <option value="Applied">Applied</option>
           <option value="Interview">Interview</option>
-          <option value="Rejected">Rejected</option>
+          <option value="Rejected">Rejected </option>
         </select>
       ):(
       <p>Status : {job.status}</p>
