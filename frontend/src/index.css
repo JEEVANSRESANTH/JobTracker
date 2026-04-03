@@ -109,3 +109,189 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+.job-tracker{
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.job-tracker{
+  text-align: left;
+}
+.job-card{
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--accent-bg);
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button:hover {
+  background: var(--accent);
+  color: white;
+}
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.job-form {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+input,
+select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+.job-form button {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: 14px;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-h);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--social-bg);
+}
+.btn-danger {
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.btn-danger:hover {
+  background: rgba(220, 38, 38, 0.1);
+}
+.job-card button {
+  margin-right: 8px;
+}
+.status {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+.status-applied {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+.status-interview {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+.status-rejected {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+.status {
+  transition: background 0.2s ease;
+}
+.job-card.editing {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+.job-card .btn {
+  margin-right: 8px;
+}
+
+.job-card.editing .btn-danger {
+  margin-left: auto;
+}
+.job-card .confirm-delete {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.job-card span {
+  font-size: 14px;
+  color: var(--text);
+}
+.btn {
+  transition: background-color 0.15s ease, 
+              color 0.15s ease, 
+              transform 0.1s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+input,
+select {
+  transition: border-color 0.15s ease, 
+              box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+.job-card {
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.job-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 0 8px 16px -4px;
+}
+.status {
+  transition: background-color 0.15s ease,
+              color 0.15s ease;
+}

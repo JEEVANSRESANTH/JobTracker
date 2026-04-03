@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState,useEffect,useRef } from "react";
 
 function JobCard({ job, deleteJob, startEditing, saveJob, editingJobId }) {
   const isEditing = job.id === editingJobId;
   const [editedCompany, setEditedCompany] = useState(job.company);
   const [editedRole,setEditedRole]=useState(job.role);
   const [editedStatus,setEditedStatus]=useState(job.status);
+  const [confirmDelete,setConfirmDelete]=useState(false);
+  const companyInputRef=useRef(null);
+  useEffect(()=>{
+    if(isEditing && companyInputRef.current){
+      companyInputRef.current.focus();
+    }
+  },[isEditing]);
 
   return (
-    <div>
+    <div className={`job-card ${isEditing ? "editing" : ""}`}>
       {isEditing ? (
         <input
+          ref={companyInputRef}
           type="text"
           value={editedCompany}
           onChange={(e) => setEditedCompany(e.target.value)}
@@ -38,16 +46,52 @@ function JobCard({ job, deleteJob, startEditing, saveJob, editingJobId }) {
           <option value="Rejected">Rejected </option>
         </select>
       ):(
-      <p>Status : {job.status}</p>
+      <p>
+        Status:{" "}
+        <span
+          className={`status status-${job.status.toLowerCase()}`}
+        >
+          {job.status}
+        </span>
+      </p>
       )}
 
-      <button onClick={() => deleteJob(job.id)}>Delete</button>
+      {!isEditing && (
+  <>
+    {!confirmDelete ? (
+      <button
+        className="btn btn-danger"
+        onClick={() => setConfirmDelete(true)}
+      >
+        Delete
+      </button>
+    ) : (
+      <div className="confirm-delete">
+        <span>Are you sure?</span>
+
+        <button
+          className="btn btn-secondary"
+          onClick={() => setConfirmDelete(false)}
+        >
+          Cancel
+        </button>
+
+        <button
+          className="btn btn-danger"
+          onClick={() => deleteJob(job.id)}
+        >
+          Confirm Delete
+        </button>
+      </div>
+    )}
+  </>
+)}
 
       {isEditing ? (
-        <button onClick={() => saveJob(job.id, editedCompany,editedRole,editedStatus  )}>
+        <button className="btn btn-primary" onClick={() => saveJob(job.id, editedCompany,editedRole,editedStatus  )}>
           Save
         </button>
-      ):(<button onClick={()=> startEditing(job.id)}>Edit</button>)
+      ):(<button className="btn btn-secondary" onClick={()=> startEditing(job.id)}>Edit</button>)
       }
 
       <hr />

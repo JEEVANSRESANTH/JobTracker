@@ -52,7 +52,7 @@ function App(){
           <option value="Rejected"> Rejected</option>
       </select>
     </label>
-    
+     <div className="job-tracker">
       <h1>Job Tracker</h1>
       <p>My first React app!</p>
       <JobForm addJob={addJob}/>
@@ -61,6 +61,7 @@ function App(){
       startEditing={startEditing}
       saveJob={saveJob}
       editingJobId={editingJobId}/>
+     </div>
     </div> 
   );
 }
