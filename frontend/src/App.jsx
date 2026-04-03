@@ -1,14 +1,21 @@
 import JobForm from "./components/JobForm";
 import JobList from "./components/JobList"; 
-import{useState} from "react";
+import{useState,useEffect} from "react";
 function App(){
-  const[jobs,setJobs]=useState([]);
+  const[jobs,setJobs]=useState(()=>{
+    const storedJobs=localStorage.getItem("jobs");
+    return storedJobs?JSON.parse(storedJobs):[];
+  });
   const[filterStatus,setFilterStatus]=useState("All");
   const[editingJobId,setEditingJobId]=useState(null);
   const filteredJobs= filterStatus==="All" ? jobs:jobs.filter((job)=>job.status===filterStatus);
+  useEffect(()=>{
+    localStorage.setItem("jobs",JSON.stringify(jobs));
+  },[jobs]);
   const startEditing=(id)=>{
     setEditingJobId(id);
   }
+
   const saveJob=(id,updatedCompany,updatedRole,updatedStatus)=>{
     setJobs(
       jobs.map((job)=>
