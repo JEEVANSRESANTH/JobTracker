@@ -88,7 +88,7 @@ function JobCard({ job, deleteJob, startEditing, saveJob, editingJobId }) {
 )}
 
       {isEditing ? (
-        <button className="btn btn-primary" onClick={() => saveJob(job.id, editedCompany,editedRole,editedStatus  )}>
+        <button className="btn btn-primary" onClick={() => saveJob(job.id, {company:editedCompany,role:editedRole,status:editedStatus}  )}>
           Save
         </button>
       ):(<button className="btn btn-secondary" onClick={()=> startEditing(job.id)}>Edit</button>)

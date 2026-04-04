@@ -1,42 +1,67 @@
 import JobForm from "./components/JobForm";
 import JobList from "./components/JobList"; 
+import { getJobs, createJob, updateJob } from "./services/jobService";
+import { deleteJob as deleteJobApi } from "./services/jobService";
 import{useState,useEffect} from "react";
 function App(){
-  const[jobs,setJobs]=useState(()=>{
-    const storedJobs=localStorage.getItem("jobs");
-    return storedJobs?JSON.parse(storedJobs):[];
-  });
+  const[jobs,setJobs]=useState([]);
   const[filterStatus,setFilterStatus]=useState("All");
   const[editingJobId,setEditingJobId]=useState(null);
   const filteredJobs= filterStatus==="All" ? jobs:jobs.filter((job)=>job.status===filterStatus);
-  useEffect(()=>{
-    localStorage.setItem("jobs",JSON.stringify(jobs));
-  },[jobs]);
   const startEditing=(id)=>{
     setEditingJobId(id);
   }
+  useEffect(()=>{
+    async function loadJobs(){
+      try{
+        const data = await getJobs();
+        setJobs(data);
+      } catch(error){
+        console.error(error);
+      }
+    }
+    loadJobs();
+  },[]);
+  const saveJob = async (id, updatedJobData) => {
+  try {
+    const updatedJob = await updateJob(id, updatedJobData);
 
-  const saveJob=(id,updatedCompany,updatedRole,updatedStatus)=>{
-    setJobs(
-      jobs.map((job)=>
-        job.id === id ?{...job,
-          company:updatedCompany,
-          role:updatedRole,
-          status:updatedStatus,
-          }:job)
+    setJobs((prevJobs) =>
+      prevJobs.map((job) =>
+        job.id === id ? updatedJob : job
+      )
     );
+
+    // ✅ THIS IS THE MISSING LINE
     setEditingJobId(null);
+
+  } catch (error) {
+    console.error(error);
   }
-  const addJob =(jobData)=>
-  {
-    const newJob={
-      id:Date.now(),
-      ...jobData
-    };
-    setJobs([...jobs,newJob]);
+  };
+  const addJob =async(jobData)=>{
+    try{
+      const createdJob=await createJob(jobData);
+      setJobs((prevJobs)=>[...prevJobs,createdJob]);
+    }catch(error){
+      console.error(error);
+    }
+  };
+  const deleteJob = async (id) => {
+  try {
+    await deleteJobApi(id);
+
+    setJobs((prevJobs) =>
+      prevJobs.filter((job) => job.id !== id)
+    );
+
+    // Optional: exit edit mode if the deleted job was being edited
+    if (editingJobId === id) {
+      setEditingJobId(null);
+    }
+  } catch (error) {
+    console.error(error);
   }
-  const deleteJob=(id)=>{
-    setJobs(jobs.filter((job)=>job.id !== id));
   };
   
   console.log(jobs);
